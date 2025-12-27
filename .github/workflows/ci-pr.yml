@@ -50,5 +50,9 @@ jobs:
         if: steps.changes.outputs.needs_test == 'true'
         run: pnpm test
 
+      - name: Run docs build (docs changes)
+        if: steps.changes.outputs.needs_deploy_docs == 'true'
+        run: pnpm docs:build
+
       - name: Run build
         run: pnpm build
