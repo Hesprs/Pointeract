@@ -4,17 +4,17 @@ Everything Pointeract does is based on this class.
 
 ## TL;DR CheatSheet
 
-| Description                                      | Method                                            |
-| ------------------------------------------------ | ------------------------------------------------- |
-| [Instantiate the Class](#instantiation)          | `new Pointeract(element, modules, options?)`      |
-| [Start Base Class](#start)                       | `start()`                                         |
-| [Stop Base Class](#stop)                         | `stop()`                                          |
-| [Start Modules](#turn-on/off-modules-at-runtime) | `start(moduleConstructor \| ModuleConstructor[])` |
-| [Stop Modules](#turn-on/off-modules-at-runtime)  | `stop(moduleConstructor \| ModuleConstructor[])`  |
-| [Subscribe](#subscribe/unsubscribe)              | `on(eventName, callback)`                         |
-| [Unsubscribe](#subscribe/unsubscribe)            | `off(eventName, callback)`                        |
-| [Get Event Types](#obtain-event-types)           | `typeof events.<eventName>`                       |
-| [Dispose](#dispose-and-clean-up)                 | `dispose()`                                       |
+| Description                                             | Method                                            |
+| ------------------------------------------------------- | ------------------------------------------------- |
+| [Instantiate the Class](/basic/lifecycle#instantiation) | `new Pointeract(element, modules, options?)`      |
+| [Start Base Class](/basic/lifecycle#start)              | `start()`                                         |
+| [Stop Base Class](/basic/lifecycle#stop)                | `stop()`                                          |
+| [Start Modules](/basic/module-lifecycle#start-and-stop) | `start(moduleConstructor \| ModuleConstructor[])` |
+| [Stop Modules](/basic/module-lifecycle#start-and-stop)  | `stop(moduleConstructor \| ModuleConstructor[])`  |
+| [Subscribe](/basic/subscribe-unsubscribe#subscribe)     | `on(eventName, callback)`                         |
+| [Unsubscribe](/basic/subscribe-unsubscribe#unsubscribe) | `off(eventName, callback)`                        |
+| [Get Event Types](/events/#obtain-event-types)          | `typeof events.<eventName>`                       |
+| [Dispose](/basic/lifecycle#disposal)                    | `dispose()`                                       |
 
 ## Full Example
 

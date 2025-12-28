@@ -47,7 +47,7 @@
 
 Pointeract is a tiny utility library focusing on one thing - handling user interactions with DOM elements. It is fully typed, small, and easy to use. You need to bind your DOM elements, load some modules, and it will start monitoring user interactions and dispatch events like `trueClick` and `pan` with data.
 
-It is build in an extensible architecture with base bundle size only **1KB** minified + gzipped, functionalities come from also byte-sized modules. So it's fully **tree-shakable**, the fewer modules you use, the smaller your bundle is.
+It is built in an extensible architecture with base bundle size only **1KB** minified + gzipped, functionalities come from also byte-sized modules. It's fully **tree-shakable**, the fewer modules you use, the smaller your bundle is.
 
 Access our documentation [here](https://pointeract.consensia.cc/).
 
@@ -81,14 +81,14 @@ Or include the following lines directly in your HTML file:
 
 ```html
 <script type="module">
-    import { Pointeract } from 'https://unpkg.com/pointeract/dist/pointeract.js';
+  import { Pointeract } from 'https://unpkg.com/pointeract/dist/index.js';
 </script>
 ```
 
 This link ships the latest ESM version by default, to access CJS version or earlier versions, try using a different URL like:
 
 ```html
-<script src="https://unpkg.com/pointeract@1.0.0/dist/pointeract.cjs"></script>
+<script src="https://unpkg.com/pointeract@1.0.0/dist/index.cjs"></script>
 ```
 
 The link above ships version 1.0.0 in CJS.

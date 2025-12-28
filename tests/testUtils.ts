@@ -1,8 +1,8 @@
 import { Window as HappyWindow } from 'happy-dom';
-import { type Click, type Drag, Pointeract, type WheelPanZoom } from '@';
+import { type Click, type Ctors, type Drag, Pointeract, type WheelPanZoom } from '@';
 import type { Coordinates, ModuleInput, Options, StdEvents } from '@/declarations';
 
-type ModulePreset = [typeof WheelPanZoom, typeof Drag, typeof Click];
+type ModulePreset = Ctors<[WheelPanZoom, Drag, Click]>;
 
 class Accumulator {
 	pan = {

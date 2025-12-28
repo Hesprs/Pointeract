@@ -1,11 +1,49 @@
 import type BaseModule from '@/baseModule';
 
-// biome-ignore lint/suspicious/noExplicitAny: general type
+// #region General Types
+// biome-ignore lint/suspicious/noExplicitAny: General Type
 export type GeneralArguments = Array<any>;
 // biome-ignore lint/suspicious/noExplicitAny: General Type
 export type GeneralObject = Record<Indexable, any>;
 export type Indexable = string | number | symbol;
+// biome-ignore lint/complexity/noBannedTypes: General Type
+type Empty = {};
+// #endregion ===============================================================================
 
+// #region Conversion Helpers
+type KnownKeys<T> = keyof {
+	[K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
+};
+export type Constrain<T> = Pick<T, KnownKeys<T>>;
+type UndefinedToObject<T> = T extends undefined ? Empty : GeneralObject extends T ? Empty : T;
+type WrapInArray<T> = T extends Array<infer U> ? Array<U> : [T];
+// biome-ignore lint/suspicious/noExplicitAny: General Type
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
+	? I
+	: never;
+export type Ctors<T extends Array<BaseModule> | BaseModule> =
+	T extends Array<BaseModule>
+		? { [K in keyof T]: new (...args: GeneralArguments) => T[K] }
+		: [new (...args: GeneralArguments) => T];
+// #endregion ===============================================================================
+
+// #region Derived Types
+export type ModuleCtor = typeof BaseModule<StdEvents>;
+export type ModuleInput = ModuleCtor | Array<ModuleCtor>;
+
+type AllModuleInstances<T extends ModuleInput> = InstanceType<WrapInArray<T>[number]>;
+export type Options<T extends ModuleInput> = Partial<
+	UnionToIntersection<UndefinedToObject<AllModuleInstances<T>['options']>> & BaseOptions
+>;
+
+export type EventMap<T extends ModuleInput> = Constrain<UnionToIntersection<AllModuleInstances<T>['events']>>;
+
+export type Reloadable<T extends ModuleInput> = WrapInArray<T>[number];
+
+export type ModifierReturn = true | false | { name: string; detail: unknown };
+// #endregion ===============================================================================
+
+// #region Informative Types
 export type Coordinates = {
 	x: number;
 	y: number;
@@ -20,33 +58,6 @@ export type Pointer = {
 	[key: Indexable]: any;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: general Type
-export type Constructor<C extends abstract new (...args: any) => any> = new (
-	...args: ConstructorParameters<C>
-) => InstanceType<C>;
-
-type ModuleCtor = Constructor<typeof BaseModule>;
-export type ModuleInput = Array<ModuleCtor> | ModuleCtor;
-
-type UndefinedToObject<T> = T extends undefined
-	? // biome-ignore lint/complexity/noBannedTypes: intentional empty object
-		{}
-	: GeneralObject extends T
-		? // biome-ignore lint/complexity/noBannedTypes: intentional empty object
-			{}
-		: T;
-type WrapInArray<T> = T extends Array<infer U> ? Array<U> : [T];
-// biome-ignore lint/suspicious/noExplicitAny: general type
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void
-	? I
-	: never;
-type AllModuleInstances<T extends ModuleInput> = InstanceType<WrapInArray<T>[number]>;
-export type Options<T extends ModuleInput> = Partial<
-	UnionToIntersection<UndefinedToObject<AllModuleInstances<T>['options']>> & BaseOptions
->;
-
-export type EventMap<T extends ModuleInput> = Constrain<UnionToIntersection<AllModuleInstances<T>['events']>>;
-
 export type Hooks =
 	| 'onPointerDown'
 	| 'onPointerUp'
@@ -56,14 +67,6 @@ export type Hooks =
 	| 'onStop'
 	| 'dispose'
 	| 'modifier';
-export type Reloadable<T extends ModuleInput> = WrapInArray<T>[number];
-
-export type ModifierReturn = true | false | { name: string; detail: unknown };
-
-type KnownKeys<T> = keyof {
-	[K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
-};
-export type Constrain<T> = Pick<T, KnownKeys<T>>;
 
 export interface StdEvents {
 	pan: CustomEvent<Coordinates>;
@@ -76,3 +79,4 @@ export interface StdEvents {
 type BaseOptions = {
 	coordinateOutput: 'absolute' | 'relative' | 'relativeFraction';
 };
+// #endregion ===============================================================================

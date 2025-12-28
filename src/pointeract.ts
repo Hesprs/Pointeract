@@ -1,19 +1,19 @@
 import type BaseModule from '@/baseModule';
 import type {
-	Constructor,
 	Coordinates,
 	EventMap,
 	GeneralArguments,
 	GeneralObject,
 	Hooks,
 	ModifierReturn,
+	ModuleCtor,
 	ModuleInput,
 	Options,
 	Pointers,
 	Reloadable,
 } from '@/declarations';
 
-export default class Pointeract<T extends ModuleInput> extends EventTarget {
+export default class Pointeract<T extends ModuleInput = []> extends EventTarget {
 	#monitoringElement: HTMLElement;
 	#pointers: Pointers = new Map();
 	#modules: Record<string, BaseModule> = {};
@@ -26,9 +26,9 @@ export default class Pointeract<T extends ModuleInput> extends EventTarget {
 		return this.#_window;
 	}
 
-	constructor(monitoringElement: HTMLElement, _modules: T, options: Options<T> = {}) {
+	constructor(monitoringElement: HTMLElement, _modules?: T, options: Options<T> = {}) {
 		super();
-		const modules = toArray(_modules);
+		const modules = toArray(_modules ? _modules : ([] as Array<ModuleCtor>));
 		this.#_window = monitoringElement.ownerDocument.defaultView;
 		this.#monitoringElement = monitoringElement;
 		this.options = options;
@@ -143,7 +143,7 @@ export default class Pointeract<T extends ModuleInput> extends EventTarget {
 			this.#monitoringElement.removeEventListener('wheel', this.#onWheel);
 			this.#runHooks('onStop');
 		};
-		const stopModule = (moduleCtor: Constructor<typeof BaseModule>) => {
+		const stopModule = (moduleCtor: ModuleCtor) => {
 			if (!(moduleCtor.name in this.#modules)) return;
 			const module = this.#modules[moduleCtor.name];
 			if (module.onStop) module.onStop();
@@ -166,7 +166,7 @@ export default class Pointeract<T extends ModuleInput> extends EventTarget {
 			this.#monitoringElement.addEventListener('wheel', this.#onWheel);
 			this.#runHooks('onStart');
 		};
-		const startModule = (moduleCtor: Constructor<typeof BaseModule>) => {
+		const startModule = (moduleCtor: ModuleCtor) => {
 			if (!(moduleCtor.name in this.#pausedModules)) return;
 			const module = this.#pausedModules[moduleCtor.name];
 			if (module.onStart) module.onStart();
