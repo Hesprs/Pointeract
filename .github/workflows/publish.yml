@@ -31,7 +31,7 @@ jobs:
         run: pnpm install -g npm@latest
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Build
         run: pnpm build

@@ -29,7 +29,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Detect changed roots
         id: detect
