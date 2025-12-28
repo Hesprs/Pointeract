@@ -19,11 +19,11 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hesprs/pointeract.git"
+		"url": "git+https://github.com/Hesprs/Pointeract.git"
 	},
 	"homepage": "https://pointeract.consensia.cc",
 	"bugs": {
-		"url": "https://github.com/hesprs/pointeract/issues"
+		"url": "https://github.com/Hesprs/Pointeract/issues"
 	},
 	"files": ["dist"],
 	"publishConfig": {
