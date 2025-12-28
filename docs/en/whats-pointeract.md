@@ -2,7 +2,7 @@
 
 Pointeract is a tiny utility library focusing on one thing - handling user interactions with DOM elements. It is fully typed, small, and easy to use. You need to bind your DOM elements, load some modules, and it will start monitoring user interactions and dispatch events like `trueClick` and `pan` with data.
 
-It is build in an extensible architecture with base bundle size only **1KB** minified + gzipped, functionalities come from also byte-sized modules. So it's fully **tree-shakable**, the fewer modules you use, the smaller your bundle is.
+It is built in an extensible architecture with base bundle size only **1KB** minified + gzipped, functionalities come from also byte-sized modules. It's fully **tree-shakable**, the fewer modules you use, the smaller your bundle is.
 
 It does not modify the DOM, which gives full control of how your app should like. If you need ready to use DOM manipulation, consider [Dragula](https://bevacqua.github.io/dragula/) or [React Pan Zoom Pinch](https://github.com/prc5/react-zoom-pan-pinch).
 

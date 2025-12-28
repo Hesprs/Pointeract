@@ -1,7 +1,12 @@
 import BaseModule from '@/baseModule';
-import type { Pointer, Pointers } from '@/declarations';
+import type { Pointer, Pointers, StdEvents } from '@/declarations';
+import Pointeract from '@/pointeract';
 
-export default class Click extends BaseModule {
+interface a extends StdEvents {
+	aa: CustomEvent;
+}
+
+export default class Click extends BaseModule<a> {
 	#lastClickTime = -Infinity;
 	#clickSteak = 0;
 
@@ -41,3 +46,7 @@ export default class Click extends BaseModule {
 		});
 	};
 }
+
+new Pointeract(document.body, [Click], {
+	coordinateOutput: 'absolute',
+});
