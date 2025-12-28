@@ -15,7 +15,13 @@ export default defineConfig({
 	head: [
 		['link', { rel: 'icon', href: '/logoFlat.svg' }],
 		['meta', { name: 'color-scheme', content: 'dark light' }],
-		['meta', { name: 'keywords', content: 'user interaction,pan zoom,multitouch,custom modules,modern lightweight' }],
+		[
+			'meta',
+			{
+				name: 'keywords',
+				content: 'user interaction,pan zoom,multitouch,custom modules,modern lightweight',
+			},
+		],
 	],
 	sitemap: { hostname: 'https://pointeract.consensia.cc' },
 	themeConfig: {
